@@ -23,15 +23,17 @@ def app():
 
     # Set up of the application before test happens here
 
-    with app.test_client() as client:
-        yield client
+    # Start test client instead of running the application in debug mode
+    yield app
 
     # Tear down of the application after test happens here
 
 @pytest.fixture()
 def client(app):
-    return app.test_client()
+    with app.test_client() as client:
+        yield client
 
 @pytest.fixture()
 def runner(app):
-    return app.test_cli_runner()
+    with app.test_cli_runner() as runner:
+        yield runner
