@@ -44,10 +44,9 @@ def test_login(client):
             "id": "test",
             "pw": "123456",
         }, follow_redirects=True)
-    print(response)
 
     assert response.status_code == 200, "Response code should be 200. Client is authorized"
-
+    assert b"<b>TEST</b>" in response.data, "Test not found in navigation bar" # Not the best way, but the website contains no cookies or such
 
 
 def test_admin_login(client):
@@ -57,6 +56,6 @@ def test_admin_login(client):
         "id": "admin",
         "pw": "admin",
     }, follow_redirects=True)
-    print(response)
 
     assert response.status_code == 200, "Response code should be 200. Client is authorized"
+    assert b"<b>ADMIN</b>" in response.data, "Test not found in navigation bar" # Not the best way, but the website contains no cookies or such
