@@ -26,6 +26,7 @@ def app():
     # Start test client instead of running the application in debug mode
     yield app
 
+    # TODO: Clean database after test
     # Tear down of the application after test happens here
 
 @pytest.fixture()
