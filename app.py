@@ -1,6 +1,8 @@
 import os
 import datetime
 import hashlib
+
+import pytest
 from flask import Flask, session, url_for, redirect, render_template, request, abort, flash
 from database import list_users, verify, delete_user_from_db, add_user
 from database import read_note_from_db, write_note_into_db, delete_note_from_db, match_user_id_with_note_id
@@ -8,11 +10,14 @@ from database import image_upload_record, list_images_for_user, match_user_id_wi
 from werkzeug.utils import secure_filename
 
 
+# Creates app
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config')
+    return app
 
-app = Flask(__name__)
-app.config.from_object('config')
 
-
+app = create_app()
 
 @app.errorhandler(401)
 def FUN_401(error):
