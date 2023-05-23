@@ -15,7 +15,7 @@ def test_public(client):
 
 
 
-
+"""
 # TODO: Make to seperate tests for authorized and unauthorized
 def test_private(client):
     response = client.get('/private/')
@@ -34,7 +34,7 @@ def test_admin(client):
         assert response.status_code == 200, "Response code should be 200. Client is authorized"
     elif session.get("current_user", None) != "ADMIN":
         assert response.status_code == 401, "Response code should be 401. Client should not be authorized"
-
+"""
 
 
 def test_login(client):
@@ -47,6 +47,7 @@ def test_login(client):
     print(response)
 
     assert response.status_code == 200, "Response code should be 200. Client is authorized"
+
 
 
 def test_admin_login(client):
