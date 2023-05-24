@@ -1,13 +1,31 @@
-name: My Workflow
 
-on: [push, pull_request]
+name: CI/CD
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+#pip installs er tmp
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Run a one-line script
-      run: echo Hello, world!!!
+     - name: Checkout repository
+       uses: actions/checkout@v2
+     - name: Install requirements
+       run: pip install -r requirements.txt 
+     - name: install itsdangerous
+       run: pip install --upgrade itsdangerous
+     - name: upgrade flask
+       run: pip install --upgrade flask
+     - name : install pytest
+       run: pip install pytest
+     - name: Build Docker Image #not an image for now
+       run: docker build -t my-app .
+     - name: Run test_unit test
+       run:  pytest tests/test_unit.py
+       working-directory: .
+     - name: Run test_integration test
+       run: pytest tests/test_integration.py
+       working-directory: .
